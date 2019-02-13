@@ -29,7 +29,7 @@ class App extends React.Component {
       taskInput: ''
     }
   };
-
+// Create the New task
   addTask = e => {
     e.preventDefault();
 
@@ -38,12 +38,14 @@ class App extends React.Component {
       id: Date.now(),
       completed: false
     }
-
+//  Spread the existing array adding the new task    
     this.setState({
       taskArray: [...this.state.taskArray, newTask],
+      taskInput: ''
     });
-  };
 
+  };
+  
   handleChanges = e => {
     this.setState({
       [e.target.name]: e.target.value
