@@ -25,10 +25,19 @@ class App extends React.Component {
   constructor(){
     super();
     this.state = {
-      taskArray: taskArray,
-      taskInput: ''
+      taskArray:  taskArray,
+      taskInput: '',
     }
   };
+
+  componentDidMount(){
+    const tasksFromLocal = window.localStorage.getItem('taskArray');
+    console.log(JSON.parse(tasksFromLocal));
+      this.setState({
+        taskArray: JSON.parse(tasksFromLocal)
+     })
+    
+  }
 // Create the New task
   addTask = e => {
     e.preventDefault();
@@ -41,17 +50,19 @@ class App extends React.Component {
 //  Spread the existing array adding the new task    
     this.setState({
       taskArray: [...this.state.taskArray, newTask],
-      taskInput: ''
-    });
+      taskInput: '',
+    },
+    () => window.localStorage.setItem('taskArray', JSON.stringify(this.state.taskArray) ));
 
   };
   
+
   handleChanges = e => {
     this.setState({
       [e.target.name]: e.target.value
     });
   };
-
+ 
   render() {
     return (
       <div className="app-container">
@@ -62,5 +73,7 @@ class App extends React.Component {
     );
   }
 }
+
+
 
 export default App;
