@@ -4,8 +4,6 @@ import TodoList from "./components/TodoComponents/TodoList";
 
 import "./app.css";
 
-
-
 class App extends React.Component {
   // you will need a place to store your state in this component.
   // design `App` to be the parent component of your application.
@@ -14,11 +12,13 @@ class App extends React.Component {
   constructor() {
     super();
     this.state = {
-      taskArray: JSON.parse(window.localStorage.getItem("taskArray")),
+      taskArray: window.localStorage.getItem("taskArray")
+      ? JSON.parse(window.localStorage.getItem("taskArray"))
+      : [],
       taskInput: ""
     };
   }
-
+  
   // Create the New task
   addTask = e => {
     e.preventDefault();
@@ -53,7 +53,7 @@ class App extends React.Component {
     this.setState({
       taskArray: JSON.parse(window.localStorage.getItem("taskArray")).filter(task => !task.completed)
     },
-    () => window.localStorage.setItem("taskArray",JSON.stringify(this.state.taskArray)))
+    () => window.localStorage.setItem("taskArray", JSON.stringify(this.state.taskArray)))
   };
 
   handleChanges = e => {
